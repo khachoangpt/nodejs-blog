@@ -1,0 +1,4 @@
+1. Khởi tạo app.js, server.js và những folder cần thiết
+2. morgan package
+3. helmet package
+4. compression package
