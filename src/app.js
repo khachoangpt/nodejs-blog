@@ -12,7 +12,6 @@ app.use(compression())
 //init db
 
 //init router
-const strComp = "Hello Hoang"
 app.get("/", (req, res, next) => {
   return res.status(200).json({
     message: "Welcome to nodejs",
