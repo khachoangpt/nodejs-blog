@@ -1,3 +1,6 @@
+"use strict";
+
+const { default: mongoose } = require("mongoose");
 const app = require("./src/app");
 
 const PORT = 3055;
@@ -7,6 +10,7 @@ const server = app.listen(PORT, () => {
 });
 
 process.on("SIGINT", () => {
+  mongoose.disconnect();
   server.close(() => {
     console.log("\nServer closed!!!");
   });

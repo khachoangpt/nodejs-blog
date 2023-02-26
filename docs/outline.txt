@@ -2,3 +2,13 @@
 2. morgan package
 3. helmet package
 4. compression package
+
+7 thứ cần triển khai trong hệ thống
+1. Cách connect db cũ và nhược điểm
+2. Cách connect db mới 
+3. Kiểm tra hệ thống có bao nhiêu connect
+4. Kiểm tra server quá tải connect
+5. Có cần thiết disconnect() mongodb hay không?
+    Không cần thiết do mongodb sử dụng poolSize
+6. Poolsize là gì?
+7. Nếu vượt quá số lượng poolSize

@@ -1,15 +1,18 @@
+"use strict";
+
 const express = require("express");
 const morgan = require("morgan");
-const helmet = require("helmet")
-const compression = require("compression")
+const helmet = require("helmet");
+const compression = require("compression");
 const app = express();
 
 //init middleware
 app.use(morgan("combined"));
-app.use(helmet())
-app.use(compression())
+app.use(helmet());
+app.use(compression());
 
 //init db
+require("./dbs/init.mongodb");
 
 //init router
 app.get("/", (req, res, next) => {
