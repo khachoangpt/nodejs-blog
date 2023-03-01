@@ -12,3 +12,5 @@
     Không cần thiết do mongodb sử dụng poolSize
 6. Poolsize là gì?
 7. Nếu vượt quá số lượng poolSize
+
+8. kết hợp .env với config file
