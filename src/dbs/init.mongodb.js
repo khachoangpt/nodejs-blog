@@ -7,6 +7,7 @@ const { default: mongoose } = require("mongoose");
 const { countConnect } = require("../helpers/check.connect");
 
 const connectString = `mongodb://${host}:${port}/${name}`;
+const env = process.env.NODE_ENV || "dev";
 
 class Database {
   constructor() {
@@ -15,7 +16,7 @@ class Database {
 
   //connect
   connect(type = "mongodb") {
-    if (1 === 1) {
+    if (env === "dev") {
       mongoose.set("debug", true);
       mongoose.set("debug", { color: true });
     }
