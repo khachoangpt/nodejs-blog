@@ -12,5 +12,10 @@
     Không cần thiết do mongodb sử dụng poolSize
 6. Poolsize là gì?
 7. Nếu vượt quá số lượng poolSize
+---------
 
 8. kết hợp .env với config file
+
+9. Tạo model và service cho đăng ký tài khoản (tạo ra privateKey và publicKey để tạo ra accessToken và refreshToken) 
+
+10. Tạo middleware cho apiKey và permissions
