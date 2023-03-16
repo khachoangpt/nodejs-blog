@@ -5,6 +5,7 @@ const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const compression = require("compression");
+const { ReasonPhrases, StatusCodes } = require("./constants/httpStatusCode");
 const app = express();
 
 //init middleware
@@ -21,5 +22,13 @@ require("./dbs/init.mongodb");
 app.use("", require("./routes"));
 
 //handle error
+app.use((error, req, res, next) => {
+  const statusCode = error.status || StatusCodes.INTERNAL_SERVER_ERROR;
+  res.status(statusCode).json({
+    status: "error",
+    code: statusCode,
+    message: error.message || ReasonPhrases.INTERNAL_SERVER_ERROR,
+  });
+});
 
 module.exports = app;

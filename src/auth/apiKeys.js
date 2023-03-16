@@ -1,7 +1,7 @@
 "use strict";
 
 const { HEADER } = require("../constants");
-const { getById } = require("../services/apiKey.service");
+const ApiKeyService = require("../services/apiKey.service");
 
 const apiKey = async (req, res, next) => {
   try {
@@ -11,7 +11,7 @@ const apiKey = async (req, res, next) => {
         message: "Forbidden Error!",
       });
     }
-    const objKey = await getById(key);
+    const objKey = await ApiKeyService.getById(key);
     if (!objKey) {
       return res.status(403).json({
         message: "Forbidden Error",
