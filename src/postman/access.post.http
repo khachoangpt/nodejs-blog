@@ -6,7 +6,7 @@ Content-Type: application/json
 x-api-key: 53fe7934fc257685dfbea7f899c01e91cb64f32f1ba407c43019960673c01a79136d631ad64003252241c8348c0e372f7cec3542bd8b372746ebcd1f1f3231ae
 
 {
-    "name": "Hoang Nguyen",
-    "email": "hoangncd301@gmail.com",
+    "name": "Hoang Nguyen 03",
+    "email": "hoangncd+03@gmail.com",
     "password": "1234567@"
 }

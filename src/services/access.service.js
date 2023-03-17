@@ -11,12 +11,12 @@ const {
   ConflictErrorResponse,
   InternalServerErrorErrorResponse,
 } = require("../core/error.response");
+const serverStatusCode = require("../constants/serverStatusCode");
 
 class AccessService {
   //signUp
   static signUp = async ({ name, email, password }) => {
     //check user registered
-
     const holderUser = await userModel.findOne({ email });
 
     if (holderUser) {
@@ -56,7 +56,7 @@ class AccessService {
       privateKey
     );
     return {
-      code: "20001",
+      code: serverStatusCode.CREATED,
       user: getInfoData({
         fields: ["_id", "name", "email"],
         object: newUser,
