@@ -14,7 +14,7 @@ class SuccessResponse {
     this.metadata = metadata;
   }
 
-  send(res, headers = {}) {
+  send(res) {
     return res.status(this.status).json(this);
   }
 }

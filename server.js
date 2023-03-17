@@ -1,5 +1,6 @@
 "use strict";
 
+const process = require("node:process");
 const { default: mongoose } = require("mongoose");
 const app = require("./src/app");
 

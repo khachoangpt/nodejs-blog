@@ -2,16 +2,13 @@
 
 const { default: mongoose } = require("mongoose");
 
-
 const connectString = `mongodb://localhost:27017/nodejs-blog`;
 mongoose
   .connect(connectString)
-  .then((_) => console.log(`Connected Mongodb`))
-  .catch((err) => console.log(`Error connect`));
+  .then(() => console.log(`Connected Mongodb`))
+  .catch((error) => console.log(`Error connect::${error.message}`));
 
-if (1 === 1) {
-  mongoose.set("debug", true);
-  mongoose.set("debug", { color: true });
-}
+mongoose.set("debug", true);
+mongoose.set("debug", { color: true });
 
-module.exports = mongoose
+module.exports = mongoose;

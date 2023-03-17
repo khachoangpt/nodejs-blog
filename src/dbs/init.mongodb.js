@@ -1,5 +1,7 @@
 "use strict";
 
+const process = require("node:process");
+
 const {
   db: { host, name, port },
 } = require("../configs/config.mongodb");
@@ -15,7 +17,7 @@ class Database {
   }
 
   //connect
-  connect(type = "mongodb") {
+  connect() {
     if (env === "dev") {
       mongoose.set("debug", true);
       mongoose.set("debug", { color: true });
@@ -23,11 +25,11 @@ class Database {
 
     mongoose
       .connect(connectString, { maxPoolSize: 50 })
-      .then((_) => {
+      .then(() => {
         console.log(`Connected to ${connectString}`);
         countConnect();
       })
-      .catch((err) => console.log(`Error connect`));
+      .catch((error) => console.log(`Error connect::${error.message}`));
   }
 
   static getInstance() {

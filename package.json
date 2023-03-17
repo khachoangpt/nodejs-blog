@@ -23,5 +23,8 @@
     "morgan": "^1.10.0",
     "os": "^0.1.2",
     "process": "^0.11.10"
+  },
+  "devDependencies": {
+    "eslint": "^8.36.0"
   }
 }

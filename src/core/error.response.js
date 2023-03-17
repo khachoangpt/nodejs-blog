@@ -310,10 +310,8 @@ class NetworkAuthenticationRequiredErrorResponse extends ErrorResponse {
 }
 
 module.exports = {
-  ErrorResponse,
   GoneErrorResponse,
   LockedErrorResponse,
-  ConflictErrorResponse,
   ConflictErrorResponse,
   NotFoundErrorResponse,
   ForbiddenErrorResponse,

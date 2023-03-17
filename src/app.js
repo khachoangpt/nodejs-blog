@@ -22,7 +22,7 @@ require("./dbs/init.mongodb");
 app.use("", require("./routes"));
 
 //handle error
-app.use((error, req, res, next) => {
+app.use((error, req, res) => {
   const statusCode = error.status || StatusCodes.INTERNAL_SERVER_ERROR;
   res.status(statusCode).json({
     status: "error",
