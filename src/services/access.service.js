@@ -10,8 +10,11 @@ const { getInfoData } = require("../utils");
 const {
   ConflictErrorResponse,
   InternalServerErrorErrorResponse,
+  BadRequestErrorResponse,
+  UnAuthorizedErrorResponse,
 } = require("../core/error.response");
 const serverStatusCode = require("../constants/serverStatusCode");
+const UserService = require("./user.service");
 
 class AccessService {
   //signUp
@@ -46,6 +49,7 @@ class AccessService {
     const publicKeyString = await KeyTokenService.createKeyToken({
       userId: newUser._id,
       publicKey: publicKey,
+      refreshToken: "",
     });
     if (!publicKeyString) {
       throw new InternalServerErrorErrorResponse("Create keyToken error");
@@ -60,6 +64,44 @@ class AccessService {
       user: getInfoData({
         fields: ["_id", "name", "email"],
         object: newUser,
+      }),
+      tokens,
+    };
+  };
+
+  static login = async ({ email, password, refreshToken = null }) => {
+    const foundUser = await UserService.findByEmail({ email });
+    if (!foundUser) {
+      throw new BadRequestErrorResponse("User not found");
+    }
+    const match = bcrypt.compareSync(password, foundUser.password);
+    if (!match) throw new UnAuthorizedErrorResponse("Login error");
+    const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {
+      modulusLength: 4096,
+      publicKeyEncoding: {
+        type: "pkcs1",
+        format: "pem",
+      },
+      privateKeyEncoding: {
+        type: "pkcs1",
+        format: "pem",
+      },
+    });
+    const tokens = await createTokenPair(
+      { userId: foundUser._id, email },
+      privateKey
+    );
+    await KeyTokenService.createKeyToken({
+      publicKey,
+      userId: foundUser._id,
+      refreshToken: tokens.refreshToken,
+    });
+
+    return {
+      code: serverStatusCode.OK,
+      user: getInfoData({
+        fields: ["_id", "name", "email"],
+        object: foundUser,
       }),
       tokens,
     };

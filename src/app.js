@@ -22,7 +22,8 @@ require("./dbs/init.mongodb");
 app.use("", require("./routes"));
 
 //handle error
-app.use((error, req, res) => {
+// eslint-disable-next-line no-unused-vars
+app.use((error, req, res, next) => {
   const statusCode = error.status || StatusCodes.INTERNAL_SERVER_ERROR;
   res.status(statusCode).json({
     status: "error",

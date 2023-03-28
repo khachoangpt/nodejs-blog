@@ -3,10 +3,20 @@
 ### signUp
 POST {{url_dev}}/user/signup
 Content-Type: application/json
-x-api-key: 53fe7934fc257685dfbea7f899c01e91cb64f32f1ba407c43019960673c01a79136d631ad64003252241c8348c0e372f7cec3542bd8b372746ebcd1f1f3231ae
+x-api-key: 80632cb1d3aac4b8fbcbd1912da67c8afbf189e0472770da6311b433d47284ffa642a8a57adaea2f8d6a7e4e8d52562ec65056677d5467f75305eb96baca3a45
 
 {
-    "name": "Hoang Nguyen 03",
-    "email": "hoangncd+03@gmail.com",
+    "name": "Hoang Nguyen",
+    "email": "hoangncd@gmail.com",
+    "password": "1234567@"
+}
+
+### login
+POST {{url_dev}}/user/login
+Content-Type: application/json
+x-api-key: 80632cb1d3aac4b8fbcbd1912da67c8afbf189e0472770da6311b433d47284ffa642a8a57adaea2f8d6a7e4e8d52562ec65056677d5467f75305eb96baca3a45
+
+{
+    "email": "hoangncd@gmail.com",
     "password": "1234567@"
 }
