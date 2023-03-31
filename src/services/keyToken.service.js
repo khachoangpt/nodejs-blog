@@ -14,15 +14,26 @@ class KeyTokenService {
         refreshToken,
       };
       const options = { upsert: true, new: true };
-      const token = await keyTokenModel.findOneAndUpdate(
-        filter,
-        update,
-        options
-      );
+      const token = await keyTokenModel
+        .findOneAndUpdate(filter, update, options)
+        .lean();
       return token ? token.publicKey : null;
     } catch (error) {
       return error;
     }
+  };
+
+  static findByUserId = async (userId) => {
+    const keyToken = await keyTokenModel
+      .findOne({
+        user: userId,
+      })
+      .lean();
+    return keyToken;
+  };
+
+  static removeById = async (id) => {
+    return await keyTokenModel.findByIdAndRemove(id).lean();
   };
 }
 

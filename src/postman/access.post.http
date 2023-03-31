@@ -1,9 +1,10 @@
 @url_dev = http://localhost:3055/v1/api
+@apiKey = 80632cb1d3aac4b8fbcbd1912da67c8afbf189e0472770da6311b433d47284ffa642a8a57adaea2f8d6a7e4e8d52562ec65056677d5467f75305eb96baca3a45
 
 ### signUp
 POST {{url_dev}}/user/signup
 Content-Type: application/json
-x-api-key: 80632cb1d3aac4b8fbcbd1912da67c8afbf189e0472770da6311b433d47284ffa642a8a57adaea2f8d6a7e4e8d52562ec65056677d5467f75305eb96baca3a45
+x-api-key: {{apiKey}}
 
 {
     "name": "Hoang Nguyen",
@@ -14,9 +15,16 @@ x-api-key: 80632cb1d3aac4b8fbcbd1912da67c8afbf189e0472770da6311b433d47284ffa642a
 ### login
 POST {{url_dev}}/user/login
 Content-Type: application/json
-x-api-key: 80632cb1d3aac4b8fbcbd1912da67c8afbf189e0472770da6311b433d47284ffa642a8a57adaea2f8d6a7e4e8d52562ec65056677d5467f75305eb96baca3a45
+x-api-key: {{apiKey}}
 
 {
     "email": "hoangncd@gmail.com",
     "password": "1234567@"
 }
+
+### logout
+POST {{url_dev}}/user/logout
+Content-Type: application/json
+x-api-key: {{apiKey}}
+x-client-id: 64230d659e22b4de62afa2cf
+authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDIzMGQ2NTllMjJiNGRlNjJhZmEyY2YiLCJlbWFpbCI6ImhvYW5nbmNkQGdtYWlsLmNvbSIsImlhdCI6MTY4MDI4NzMwMiwiZXhwIjoxNjgwNDYwMTAyfQ.p1SHKuJkp91WqbGvt11Y9f1HkPe1Hn9PLimTZE9yGZgRABaDeJWWUHc9XLtJuJz2P5NKux1BK_lBhEBvoPCz9lIbln-L9YvjOGKcCmIC0FJTYHDRMpfvC_hdcBDLm4gI8zkjbv1QF5uP6YpzPI3CAia-QdCGXTl9roL9rOC0yuFoOVRFQfHfKzJ65lwveET9VdSXe41v1HN_1Cn6Tsgbx_Hx3sYVv-mIt41tFzltWgAmg2BroOU77TGh_1gikIDNa5PPzlTq8Wde48Cg7CaCr22a30ERhWRclLxtw8czvsNVSr7BxWdWWD9EwDw4mqFnqkJn7nFv8aulM1b54Le0tRHZFDlDoTXt6Ui6L4blaT5MSBPSTVOFpxZGek3wuThoaYCsRqQWvySF_LxO_DQej6goveZtwBVwiluCFsJh4ncU_OCUHKEKxmlFNsTclyRROUg9JWnKgcAJvynk3-G4xQmJPDZ3bh3b6E3heNev-GqYYYgfL_9T0dz8cmFcwlH2K0Ni8zWB_MUyV4N1PRmBaAjXcEQGPiMqgIiHj56WPdYEK2sHm1eOTHegiWiy5zAZpwY-xAKnQB9Oum1vmj13MA_5UySlnm20CxyP-Ml-nTpevACydrV0fqV9wFXtB1YsMeyHdX1hdSFiJUC8Xql55dTQEWhDzuLqGMmNczyKY4o

@@ -116,6 +116,11 @@ class AccessService {
       tokens,
     };
   };
+
+  static logout = async (keyToken) => {
+    const removeKey = await KeyTokenService.removeById(keyToken._id);
+    return removeKey;
+  };
 }
 
 module.exports = AccessService;

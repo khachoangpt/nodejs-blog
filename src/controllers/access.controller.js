@@ -12,9 +12,18 @@ class AccessController {
     }).send(res);
   };
 
+  // login
   login = async (req, res) => {
     new OKResponse({
       metadata: await AccessService.login(req.body),
+    }).send(res);
+  };
+
+  //logout
+  logout = async (req, res) => {
+    new OKResponse({
+      message: "Logout success",
+      metadata: await AccessService.logout(req.keyToken),
     }).send(res);
   };
 }
