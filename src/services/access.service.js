@@ -69,13 +69,19 @@ class AccessService {
     };
   };
 
+  // eslint-disable-next-line no-unused-vars
   static login = async ({ email, password, refreshToken = null }) => {
+    // check if user exist
     const foundUser = await UserService.findByEmail({ email });
     if (!foundUser) {
       throw new BadRequestErrorResponse("User not found");
     }
+
+    // check match password
     const match = bcrypt.compareSync(password, foundUser.password);
     if (!match) throw new UnAuthorizedErrorResponse("Login error");
+
+    // create key pair
     const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {
       modulusLength: 4096,
       publicKeyEncoding: {
@@ -87,10 +93,14 @@ class AccessService {
         format: "pem",
       },
     });
+
+    // create token pair
     const tokens = await createTokenPair(
       { userId: foundUser._id, email },
       privateKey
     );
+
+    // save keyToken of user
     await KeyTokenService.createKeyToken({
       publicKey,
       userId: foundUser._id,
