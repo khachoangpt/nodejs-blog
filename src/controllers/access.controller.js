@@ -15,6 +15,7 @@ class AccessController {
   // login
   login = async (req, res) => {
     new OKResponse({
+      message: "Login success",
       metadata: await AccessService.login(req.body),
     }).send(res);
   };
