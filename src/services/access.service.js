@@ -119,7 +119,10 @@ class AccessService {
 
   static logout = async (keyToken) => {
     const removeKey = await KeyTokenService.removeById(keyToken._id);
-    return removeKey;
+    return {
+      code: serverStatusCode.OK,
+      removedKeyToken: removeKey,
+    };
   };
 }
 
