@@ -16,8 +16,15 @@ const HEADER = {
 
 const PERMISSIONS = ["0000", "1111", "2222"];
 
+const ProductTypes = {
+  ELECTRONICS: "Electronics",
+  CLOTHING: "Clothing",
+  FURNITURE: "Furniture",
+};
+
 module.exports = {
   UserRoles,
   HEADER,
   PERMISSIONS,
+  ProductTypes,
 };
