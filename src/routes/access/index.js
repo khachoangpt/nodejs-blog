@@ -14,6 +14,13 @@ router.post("/user/login", asyncHandler(accessController.login));
 
 // middleware required auth api
 router.use(authentication);
+
 // logout
 router.post("/user/logout", asyncHandler(accessController.logout));
+
+// handle refresh token
+router.post(
+  "/user/refreshToken",
+  asyncHandler(accessController.handleRefreshToken)
+);
 module.exports = router;

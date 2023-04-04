@@ -15,6 +15,7 @@ const {
 } = require("../core/error.response");
 const serverStatusCode = require("../constants/serverStatusCode");
 const UserService = require("./user.service");
+const { NotFoundErrorResponse } = require("../core/error.response");
 
 class AccessService {
   //signUp
@@ -48,7 +49,8 @@ class AccessService {
     });
     const publicKeyString = await KeyTokenService.createKeyToken({
       userId: newUser._id,
-      publicKey: publicKey,
+      publicKey,
+      privateKey,
       refreshToken: "",
     });
     if (!publicKeyString) {
@@ -103,6 +105,7 @@ class AccessService {
     // save keyToken of user
     await KeyTokenService.createKeyToken({
       publicKey,
+      privateKey,
       userId: foundUser._id,
       refreshToken: tokens.refreshToken,
     });
@@ -122,6 +125,50 @@ class AccessService {
     return {
       code: serverStatusCode.OK,
       removedKeyToken: removeKey,
+    };
+  };
+
+  static handleRefreshToken = async ({ refreshToken, user, keyToken }) => {
+    const { userId, email } = user;
+    // refresh token used
+    if (keyToken.refreshTokensUsed.includes(refreshToken)) {
+      // remove key token
+      await KeyTokenService.removeById(keyToken._id);
+      throw new NotFoundErrorResponse(
+        "Something went wrong. Please login again."
+      );
+    }
+
+    // refresh token not in keyToken
+    if (refreshToken !== keyToken.refreshToken) {
+      throw new UnAuthorizedErrorResponse("Token error");
+    }
+
+    const foundUser = await UserService.findByEmail({ email });
+    if (!foundUser) {
+      throw new UnAuthorizedErrorResponse("User not registered");
+    }
+
+    // create token pair
+    const tokens = await createTokenPair(
+      { userId, email },
+      keyToken.privateKey
+    );
+
+    // update key token
+    await keyToken.updateOne({
+      $set: {
+        refreshToken: tokens.refreshToken,
+      },
+      $addToSet: {
+        refreshTokensUsed: refreshToken,
+      },
+    });
+
+    return {
+      code: serverStatusCode.OK,
+      user: { userId: foundUser._id, email },
+      tokens,
     };
   };
 }

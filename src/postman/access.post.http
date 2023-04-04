@@ -1,5 +1,7 @@
 @url_dev = http://localhost:3055/v1/api
 @apiKey = 5290a04d2093b9b3fbedadb3ef8bce4e07f7e89d8257195802a47d60641cee0d0ad683c17c117958344b3ce9beed5a14e84b1f2d7d5478a830633594d5dbbfde
+@authToken = {{login.response.body.$.metadata.tokens.accessToken}}
+@refreshToken = {{login.response.body.$.metadata.tokens.refreshToken}}
 
 ### signUp
 POST {{url_dev}}/user/signup
@@ -13,6 +15,7 @@ x-api-key: {{apiKey}}
 }
 
 ### login
+# @name login
 POST {{url_dev}}/user/login
 Content-Type: application/json
 x-api-key: {{apiKey}}
@@ -27,4 +30,12 @@ POST {{url_dev}}/user/logout
 Content-Type: application/json
 x-api-key: {{apiKey}}
 x-client-id: 642819fb07b95b82c6ac8bd3
-authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDI4MTlmYjA3Yjk1YjgyYzZhYzhiZDMiLCJlbWFpbCI6ImhvYW5nbmNkQGdtYWlsLmNvbSIsImlhdCI6MTY4MDM0OTg4OCwiZXhwIjoxNjgwNTIyNjg4fQ.WT6A9FicgVEj86xfMTom5q9rj1FkXKZfrhOWMjKTBVGJxDsx1A-fXRJ7dbAUK7mPG55E4mKVR3aEQ9_bAg8Yk8Jpiu4JMxALKvrY8MLcaYziwd8MazrjvNfCUnR9cKE2WdyXPIE0-Kv6nYiGe0f_ugUqSzxn3f1Pyc2Ti0-xRSgODpkCbGdlsfM7T4GFYo6nA9XV49qlPX7cDUErdzWHP4HPs5v9kaKSQAic1f7xhjW79ZZs9Ry6Z1bziad7QMY582zpP0R91DS-KxgyU8-mV2FqMWzYT0czvVZPnXO-49JqAjtti-z5P6PbnB2d6E2myxY-kuzICOaK2n8D1BGMMtFH8mBuYTHF78LyAFSN05RIWF1F1UxBS0MKvlEOMKAnqZj3T9k8L8Vz92HrR6Y0k43fImqtbko31xOZw3-2JMgNXLMYJVxAIjLYAnBA8A3CFC0JZbvPGkmycC3edsvC8HLKazDWSxqv42LVDlm3ifXYcmC3cUmObyLh3lRpjdpRiKLsVjkAFbJmanQ0q3Zk2gULzuXE59FcCX0Q_6wLnzP2juZpQx5tOLKjLEPqdBfYWYXzpVZU0J_Ofb7TcaHH6Iwmn5597guLf3m6QI6bBlPZTQyygcelHkxmHNv2dPAwASGZ5doWkTmrbSpFBg7SCP4SKQRtn6ghl87kpxUmKwA
+authorization: {{authToken}}
+
+### refresh token
+POST {{url_dev}}/user/refreshToken
+Content-Type: application/json
+x-api-key: {{apiKey}}
+x-client-id: 642819fb07b95b82c6ac8bd3
+x-refresh-token: {{refreshToken}}
+authorization: {{authToken}}

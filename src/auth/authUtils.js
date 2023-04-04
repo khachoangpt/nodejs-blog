@@ -27,13 +27,27 @@ const authentication = asyncHandler(async (req, res, next) => {
   const userId = req.headers[HEADER.CLIENT_ID];
   if (!userId) throw new NotFoundErrorResponse("User not found");
 
-  // check accessToken
-  const accessToken = req.headers[HEADER.AUTHORIZATION];
-  if (!accessToken) throw new NotFoundErrorResponse("Token not found");
-
   // check keyToken is exist
   const keyToken = await KeyTokenService.findByUserId(userId);
   if (!keyToken) throw new UnAuthorizedErrorResponse("KeyToken not found");
+
+  // check refresh token
+  const refreshToken = req.headers[HEADER.REFRESH_TOKEN];
+  if (refreshToken) {
+    // decode token
+    const user = JWT.verify(refreshToken, keyToken.publicKey);
+    if (user.userId !== userId) {
+      throw new UnAuthorizedErrorResponse("User in token is not correct");
+    }
+    req.user = user;
+    req.refreshToken = refreshToken;
+    req.keyToken = keyToken;
+    return next();
+  }
+
+  // check accessToken
+  const accessToken = req.headers[HEADER.AUTHORIZATION];
+  if (!accessToken) throw new NotFoundErrorResponse("Token not found");
 
   // check userId match with accessToken
   const decodeUser = JWT.verify(accessToken, keyToken.publicKey);

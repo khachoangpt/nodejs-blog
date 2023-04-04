@@ -4,12 +4,19 @@ const keyTokenModel = require("../models/keyToken.model");
 
 class KeyTokenService {
   //create keyToken
-  static createKeyToken = async ({ userId, publicKey, refreshToken }) => {
+  static createKeyToken = async ({
+    userId,
+    publicKey,
+    privateKey,
+    refreshToken,
+  }) => {
     try {
       const publicKeyString = publicKey.toString();
+      const privateKeyString = privateKey.toString();
       const filter = { user: userId };
       const update = {
         publicKey: publicKeyString,
+        privateKey: privateKeyString,
         refreshTokensUsed: [],
         refreshToken,
       };
@@ -17,23 +24,30 @@ class KeyTokenService {
       const token = await keyTokenModel
         .findOneAndUpdate(filter, update, options)
         .lean();
-      return token ? token.publicKey : null;
+      return token;
     } catch (error) {
       return error;
     }
   };
 
   static findByUserId = async (userId) => {
-    const keyToken = await keyTokenModel
-      .findOne({
-        user: userId,
-      })
-      .lean();
+    const keyToken = await keyTokenModel.findOne({
+      user: userId,
+    });
+
     return keyToken;
   };
 
   static removeById = async (id) => {
     return await keyTokenModel.findByIdAndRemove(id).lean();
+  };
+
+  static findByRefreshTokenUsed = async (refreshToken) => {
+    return await keyTokenModel.findOne({ refreshTokensUsed: refreshToken });
+  };
+
+  static findByRefreshToken = async (refreshToken) => {
+    return await keyTokenModel.findOne({ refreshToken });
   };
 }
 
