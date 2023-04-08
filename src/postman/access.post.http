@@ -54,7 +54,6 @@ authorization: {{authToken}}
     "product_price": 119000,
     "product_quantity": 100,
     "product_type": "Clothing",
-    "product_user": "642819fb07b95b82c6ac8bd3",
     "product_attributes": {
         "brand": "Hedasy",
         "size": "M",

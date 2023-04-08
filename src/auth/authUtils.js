@@ -55,6 +55,7 @@ const authentication = asyncHandler(async (req, res, next) => {
   if (userId !== decodeUser.userId)
     throw new UnAuthorizedErrorResponse("Client_id not in keyToken");
   req.keyToken = keyToken;
+  req.user = decodeUser;
   return next();
 });
 
