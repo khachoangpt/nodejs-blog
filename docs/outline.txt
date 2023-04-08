@@ -31,3 +31,5 @@
 15. Handle refreshToken
 
 16. Product model
+
+17. Create an new product api

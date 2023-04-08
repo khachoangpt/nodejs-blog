@@ -17,7 +17,7 @@ const HEADER = {
 const PERMISSIONS = ["0000", "1111", "2222"];
 
 const ProductTypes = {
-  ELECTRONICS: "Electronics",
+  ELECTRONIC: "Electronic",
   CLOTHING: "Clothing",
   FURNITURE: "Furniture",
 };
